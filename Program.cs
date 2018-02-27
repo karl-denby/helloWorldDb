@@ -29,6 +29,23 @@ namespace myApp
                 Console.WriteLine(document.ToString());
             }
             
+            Console.WriteLine("Create 10,000 Documents");
+            for (int i = 0; i < 10000; i++)
+            {
+                collection.InsertOne(new BsonDocument{
+                    {"_id", i},
+                    {"desc","Created document _id: " + i.ToString()}
+                });
+            }
+
+            Console.WriteLine("Delete 10,000 Documents");
+            for (int i = 1; i > 10000; i++)
+            {
+                collection.DeleteOne(new BsonDocument{
+                    {"_id", i}
+                });
+            }
+
             Console.WriteLine("Done");
 
         }
