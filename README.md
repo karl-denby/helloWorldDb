@@ -1,7 +1,10 @@
-# csharp-hello-world
+# helloWorldDb
+
 C# Experiments
 
-1. Hello World [DONE]
-2. Connect to Mongo Atlas [DONE]
-3. ?
-4. Profit
+This project currently connects and writes 1000's of documents.  Its mostly used for testing C# behaviour during cluster failover, as a result its pretty simple.
+
+# Instructions
+
+dotnet build
+dotnet run
