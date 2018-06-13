@@ -6,5 +6,5 @@ This project currently connects and writes 1000's of documents.  Its mostly used
 
 # Instructions
 
-dotnet build
-dotnet run
+* dotnet build
+* dotnet run
