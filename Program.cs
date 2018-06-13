@@ -3,6 +3,7 @@ using MongoDB.Bson;
 using MongoDB.Bson.IO;
 using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
+using System.Threading;
 
 namespace myApp
 {
@@ -11,11 +12,10 @@ namespace myApp
         static void Main(string[] args)
         {
             // Enter your connection String here.
-            string connnection_string = "";
+            string connnection_string = "mongodb+srv://csharp:csharp18@m0-playground-ay8ei.mongodb.net/test?retryWrites=true";
             string database_name = "hello";
             string collection_name = "world";
 
-            Console.WriteLine("Hello World!");
             Console.WriteLine("Connecting to Mongo");
 
             var client = new MongoClient(connnection_string);
@@ -29,25 +29,18 @@ namespace myApp
                 Console.WriteLine(document.ToString());
             }
             
-            Console.WriteLine("Create 10,000 Documents");
-            for (int i = 0; i < 10000; i++)
+            Console.WriteLine("Insert Documents with 100ms interval");
+            for (int i = 0; i < 10 * 60 * 1; i++)
             {
                 collection.InsertOne(new BsonDocument{
                     {"_id", i},
                     {"desc","Created document _id: " + i.ToString()}
                 });
+                Thread.Sleep(100);
             }
-
-            Console.WriteLine("Delete 10,000 Documents");
-            for (int i = 1; i > 10000; i++)
-            {
-                collection.DeleteOne(new BsonDocument{
-                    {"_id", i}
-                });
-            }
-
-            Console.WriteLine("Done");
-
+            Console.WriteLine("Delete 1M Documents");
+            collection.DeleteMany(new BsonDocument{});
+            Console.WriteLine("Finished");
         }
     }
 }
