@@ -12,7 +12,7 @@ namespace myApp
         static void Main(string[] args)
         {
             // Enter your connection String here.
-            string connnection_string = "mongodb+srv://<USER>:<PASSWORD>@dflatretryablewrites-abcde.mongodb.net/test?retryWrites=true";
+            string connnection_string = "mongodb://127.0.0.1/admin?retryWrites=true";
             string database_name = "hello";
             string collection_name = "world";
 
