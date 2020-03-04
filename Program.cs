@@ -1,7 +1,5 @@
 ﻿using System;
 using MongoDB.Bson;
-using MongoDB.Bson.IO;
-using MongoDB.Bson.Serialization;
 using MongoDB.Driver;
 using System.Threading;
 
@@ -12,18 +10,18 @@ namespace myApp
         static void Main(string[] args)
         {
             // Enter your connection String here.
-            string connnection_string = "mongodb://127.0.0.1/admin?retryWrites=true";
-            string database_name = "hello";
-            string collection_name = "world";
+            string connection_string = Environment.GetEnvironmentVariable("CONNECTION_STRING");
+            string database_name = "drivers";
+            string collection_name = "csharp";
 
             Console.WriteLine("Connecting to Mongo");
-            
-            var client = new MongoClient(connnection_string);
+
+            var client = new MongoClient(connection_string);
             var database = client.GetDatabase(database_name);
             var collection = database.GetCollection<BsonDocument>(collection_name);
 
             Console.WriteLine("Delete Documents");
-            collection.DeleteMany(new BsonDocument{});
+            collection.DeleteMany(new BsonDocument { });
 
             Console.WriteLine("ServerSelectionTimeoutMS: " + client.Settings.ServerSelectionTimeout);
 
@@ -35,13 +33,14 @@ namespace myApp
                     {"desc","Created document _id: " + i.ToString()}
                 });
                 Console.Write(i + ", ");
-                if (i % 20 == 0 ){
+                if ((i % 20 == 0) && (i > 0))
+                {
                     Console.WriteLine(": Documents Written");
                 }
                 Thread.Sleep(10);
             }
             Console.WriteLine("Delete Documents");
-            collection.DeleteMany(new BsonDocument{});
+            collection.DeleteMany(new BsonDocument { });
             Console.WriteLine("Finished");
         }
     }
